@@ -1,4 +1,4 @@
-33   */6  * * *   librenms    /opt/librenms/cronic /opt/librenms/discovery-wrapper.py 1
+33   */6  * * *   librenms    PATH=/opt/librenms/venv/bin:$PATH /opt/librenms/cronic /opt/librenms/discovery-wrapper.py 1
 */5  *    * * *   librenms    /opt/librenms/discovery.php -h new >> /dev/null 2>&1
 
 */5  *    * * *   librenms    /opt/librenms/cronic /opt/librenms/poller-wrapper.py 16

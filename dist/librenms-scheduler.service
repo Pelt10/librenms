@@ -3,9 +3,10 @@ Description=LibreNMS Scheduler
 
 [Service]
 Type=oneshot
-StandardOutput=null
-StandardError=null
+StandardError=journal
+StandardOutput=journal
 WorkingDirectory=/opt/librenms/
-ExecStart=/usr/bin/env php artisan schedule:run --no-ansi --no-interaction
+ExecStart=php artisan schedule:run --no-ansi --no-interaction
+Environment="PATH=/opt/librenms/venv/bin:/usr/local/bin:/usr/bin:/bin"
 User=librenms
 Group=librenms

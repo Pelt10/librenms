@@ -50,10 +50,25 @@ class Python extends BaseValidation
             return; // no need to check anything else
         }
 
+	$this->checkPythonVirtualEnv($validator);
         $this->checkVersion($validator, $version);
         $this->checkPipVersion($validator, $version);
         $this->checkExtensions($validator);
     }
+
+   private function checkPythonVirtualEnv(Validator $validator) {
+       $process = new Process(['python3', '-c', '"import sys;print(f"{sys.prefix}:{sys.base_prefix}")"']);
+       $process->run();
+       
+       if ($process->getExitCode() == 0) {
+           $output = $process->getOutput();
+	   list($py_prefix, $py_base_prefix) = explode(':',$output);
+	   if ($my_prefix != $py_base_prefix) {
+               $validator->warn('Python not run in Python Virtual Environement. Please Update your installation to follow new recommendations.');
+	   }
+       }
+   }
+
 
     private function checkVersion(Validator $validator, $version)
     {
